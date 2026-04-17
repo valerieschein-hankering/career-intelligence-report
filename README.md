@@ -23,7 +23,7 @@ Output defaults to a markdown response in chat. Ask for `HTML` to get a polished
 
 ## Sample Output
 
-A sample report for a fictional event marketing professional (Jordan M. Ellis, Director of Global Events, Atlanta) is included in [`samples/sample_career_report_event_marketing.html`](samples/sample_career_report_event_marketing.html). It demonstrates the full HTML output format with real 2026 market data.
+A sample report for a fictional event marketing professional (Jordan M. Ellis, Director of Global Events, Atlanta) is included in [`sample_career_report_event_marketing.html`](sample_career_report_event_marketing.html). It demonstrates the full HTML output format with real 2026 market data.
 
 ---
 
