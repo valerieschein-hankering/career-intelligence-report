@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Intelligence Report — Jordan M. Ellis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --dark: #1a1f1c;
+    --dark2: #242a26;
+    --accent: #2d6b4a;
+    --accent-light: #e4f0ea;
+    --accent-muted: #a8ccb8;
+    --gold: #b5863a;
+    --gold-light: #f5edd8;
+    --red-light: #faeaea;
+    --red-border: #c94040;
+    --teal: #1e5f6e;
+    --teal-light: #d4eaee;
+    --text: #1e2420;
+    --muted: #6b7570;
+    --border: #ddd9d0;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Lora', serif;
+    --sans: 'Syne', sans-serif;
+    --radius: 10px;
+    --shadow: 0 3px 16px rgba(0,0,0,0.07);
+    --shadow-hover: 0 10px 32px rgba(0,0,0,0.13);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up   { animation: fadeUp 0.7s ease both; }
+  .delay-1   { animation-delay: 0.1s; }
+  .delay-2   { animation-delay: 0.22s; }
+  .delay-3   { animation-delay: 0.34s; }
+  .delay-4   { animation-delay: 0.46s; }
+
+  /* ── HEADER ─── */
+  .report-header {
+    background: var(--dark);
+    color: #edeae4;
+    padding: 72px 48px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::before {
+    content: '';
+    position: absolute; top: -100px; right: -80px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(45,107,74,0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .report-header::after {
+    content: '';
+    position: absolute; bottom: -60px; left: 20%;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(181,134,58,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .header-sample-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: rgba(181,134,58,0.2);
+    color: #d4aa6a;
+    border: 1px solid rgba(181,134,58,0.35);
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .header-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent-muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .header-name {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6.5vw, 68px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-size: 17px;
+    font-weight: 400;
+    color: #b0aba2;
+    margin-bottom: 32px;
+    letter-spacing: 0.04em;
+  }
+  .header-meta {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #7a7770;
+  }
+  .header-meta span { display: flex; align-items: center; gap: 8px; }
+  .header-meta span::before {
+    content: ''; display: block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── NAV ─── */
+  .sticky-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26,31,28,0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    max-width: 860px; margin: 0 auto;
+    display: flex; overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-inner a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #8a8a80;
+    text-decoration: none;
+    padding: 14px 18px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-inner a:hover { color: var(--accent-muted); border-bottom-color: var(--accent); }
+
+  /* ── LAYOUT ─── */
+  .section {
+    max-width: 860px; margin: 0 auto;
+    padding: 64px 32px;
+  }
+  .section + .section { border-top: 1px solid var(--border); }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 32px;
+    color: var(--dark);
+  }
+
+  /* ── S1: PROFILE ─── */
+  .profile-block {
+    background: var(--dark2);
+    color: #e6e2db;
+    padding: 36px 40px;
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    font-size: 16.5px;
+    line-height: 1.8;
+  }
+  .profile-block p + p { margin-top: 16px; }
+  .disc-box {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .disc-box strong { color: var(--gold); display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .diff-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .diff-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 40px;
+    border: 1px solid rgba(45,107,74,0.25);
+    text-transform: uppercase;
+  }
+  .location-note {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 16px 20px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 14px;
+    color: var(--teal);
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  /* ── S2: MARKET ─── */
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 32px; }
+  .role-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .role-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .demand-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .badge-explosive { background: #fce4ec; color: #880e4f; }
+  .badge-very-high { background: #e3f2fd; color: #1565c0; }
+  .badge-high      { background: #e8f5e9; color: #2e7d32; }
+  .badge-moderate  { background: #fef9e7; color: #7a5c1a; }
+  .role-title { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+  .role-salary { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 10px; }
+  .role-rationale { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .trends-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    box-shadow: var(--shadow);
+  }
+  .trends-box h3 { font-family: var(--serif); font-size: 18px; margin-bottom: 16px; }
+  .trends-box ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .trends-box li { font-size: 14px; padding-left: 22px; position: relative; }
+  .trends-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+
+  /* ── S3: COMPENSATION ─── */
+  .comp-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .comp-table thead tr { background: var(--dark2); color: #dedad4; }
+  .comp-table th {
+    padding: 14px 18px; text-align: left;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  }
+  .comp-table td { padding: 13px 18px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .comp-table tr:nth-child(even) td { background: #faf9f6; }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .salary-val { font-family: var(--mono); color: var(--accent); font-weight: 700; }
+  .comp-source { font-size: 12px; color: var(--muted); font-family: var(--mono); margin-bottom: 24px; }
+
+  .ceiling-box {
+    background: var(--gold-light);
+    border: 1px solid rgba(181,134,58,0.3);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+  }
+  .ceiling-box h3 { font-family: var(--serif); font-size: 17px; margin-bottom: 10px; color: #7a5010; }
+  .ceiling-box p { font-size: 14px; color: #6b5020; line-height: 1.7; }
+
+  /* ── S4: CERTS ─── */
+  .cert-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    display: flex; gap: 20px; align-items: flex-start;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cert-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .cert-num {
+    font-family: var(--serif);
+    font-size: 48px; font-weight: 700;
+    color: var(--border); line-height: 1;
+    flex-shrink: 0; width: 52px; text-align: center;
+  }
+  .cert-body { flex: 1; }
+  .cert-name { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+  .cert-org { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .cert-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .cert-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; min-width: 110px; }
+  .cert-impact {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 4px;
+  }
+  .impact-highest { background: #fce4ec; color: #880e4f; }
+  .impact-high    { background: #e3f2fd; color: #1565c0; }
+  .impact-medium  { background: #e8f5e9; color: #2e7d32; }
+  .impact-situational { background: #fef9e7; color: #7a5c1a; }
+  .cert-cost { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+  .cost-free { color: #2e7d32; }
+  .cost-paid { color: var(--gold); }
+
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .skill-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .skill-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .skill-item p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── S5: ROADMAP ─── */
+  .budget-box {
+    background: #f2f8f4;
+    border: 1px solid rgba(45,107,74,0.25);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 36px;
+  }
+  .budget-box h3 { font-family: var(--serif); font-size: 18px; margin-bottom: 14px; }
+  .budget-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .budget-table th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 6px 0; border-bottom: 1px solid rgba(45,107,74,0.2); }
+  .budget-table td { padding: 10px 0; border-bottom: 1px solid #e8f0ec; }
+  .budget-table tr:last-child td { border-bottom: none; font-weight: 600; }
+  .budget-val { font-family: var(--mono); color: var(--accent); }
+
+  .timeline { position: relative; padding-left: 38px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--gold));
+  }
+  .phase { position: relative; margin-bottom: 44px; }
+  .phase::before {
+    content: ''; position: absolute;
+    left: -31px; top: 5px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .phase-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .phase-title { font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+  .phase-desc { font-size: 14px; color: var(--muted); margin-bottom: 14px; line-height: 1.65; }
+  .phase-tasks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .phase-tasks li { font-size: 14px; padding-left: 20px; position: relative; }
+  .phase-tasks li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-family: var(--mono); font-size: 12px; }
+
+  .deliverables-box {
+    background: var(--dark2);
+    border-radius: var(--radius);
+    padding: 28px 32px; margin-top: 16px;
+  }
+  .deliverables-box h3 { font-family: var(--serif); font-size: 20px; color: #e0dbd2; margin-bottom: 20px; }
+  .deliverables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .deliverable-item { font-size: 14px; color: #bfb9af; padding-left: 22px; position: relative; line-height: 1.5; }
+  .deliverable-item::before { content: '✓'; position: absolute; left: 0; color: var(--accent-muted); font-weight: 700; }
+
+  /* ── S6: GAPS & OPPS ─── */
+  .go-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .go-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .go-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .gap-card { border-left: 3px solid var(--red-border); background: var(--red-light); }
+  .opp-card { border-left: 3px solid var(--teal); background: var(--teal-light); }
+  .go-type { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+  .gap-card .go-type { color: var(--red-border); }
+  .opp-card .go-type { color: var(--teal); }
+  .go-title { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+  .go-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* ── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    color: #6a6a60;
+    padding: 40px 48px;
+    font-size: 12px;
+    font-family: var(--mono);
+    margin-top: 40px;
+  }
+  .footer-inner { max-width: 860px; margin: 0 auto; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+  .footer-name { font-size: 15px; color: #c0bbb4; font-family: var(--serif); font-weight: 600; display: block; margin-bottom: 4px; }
+  .footer-disclaimer {
+    background: rgba(181,134,58,0.1);
+    border: 1px solid rgba(181,134,58,0.2);
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: #9a8a60;
+    margin-bottom: 24px;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .sources-title { color: #8a8a80; margin-bottom: 8px; }
+  .sources-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+
+  /* ── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .report-header { padding: 48px 24px 40px; }
+    .section { padding: 48px 20px; }
+    .role-grid, .go-grid, .skills-grid, .deliverables-grid { grid-template-columns: 1fr; }
+    .cert-card { flex-direction: column; }
+    .cert-meta { align-items: flex-start; flex-direction: row; }
+    footer { padding: 32px 20px; }
+    .footer-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="header-inner">
+    <div class="header-sample-badge fade-up">★ Sample Report — Event Marketing</div>
+    <div class="header-eyebrow fade-up delay-1">Career Intelligence Report · April 2026</div>
+    <h1 class="header-name fade-up delay-1">Jordan M. Ellis</h1>
+    <p class="header-title fade-up delay-2">Director of Global Events · CMP · Brand Activation Specialist</p>
+    <div class="header-meta fade-up delay-3">
+      <span>Atlanta, GA</span>
+      <span>10 Years Experience</span>
+      <span>B2C &amp; DTC · Trade Shows · Global Activations</span>
+      <span>Open to New Opportunities</span>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#profile">01 Profile</a>
+    <a href="#demand">02 Market Demand</a>
+    <a href="#compensation">03 Compensation</a>
+    <a href="#certs">04 Certifications</a>
+    <a href="#roadmap">05 60-Day Roadmap</a>
+    <a href="#gaps">06 Gaps &amp; Opportunities</a>
+  </div>
+</nav>
+
+<!-- S1: PROFILE -->
+<section id="profile" class="section fade-up">
+  <div class="section-label">Section 01</div>
+  <h2 class="section-title">Profile Assessment</h2>
+
+  <div class="profile-block">
+    <p>Jordan sits at a genuinely interesting inflection point in event marketing. Ten years of consistent progression — from Events Associate through to Director of Global Events at large publicly-traded B2C and DTC companies — represents a track record that is both rare and highly legible to hiring managers. The trajectory tells a clear story of operational depth that grew into strategic scope: somebody who learned the trade from the ground up and now owns the program.</p>
+    <p>The combination of trade show mastery, global brand activation experience, and budget ownership at the Director level is a strong differentiator in a market where most mid-career event professionals have depth in one area but not all three. Add CMP certification — which PCMA data shows correlates with roughly $6,000–$11,000 higher average compensation than uncertified peers — and Jordan carries the credential stack that large corporate event teams look for when hiring managers and senior individual contributors.</p>
+    <p>The primary area to manage carefully is team scale. A maximum team of three direct reports, none of whom managed others, means Jordan's positioning as a "director" is accurate by title but may be questioned in interviews for VP-level or larger director roles where people management scope is a gatekeeping criterion. Reframing toward program scale, vendor portfolio complexity, and budget owned — rather than headcount managed — is the right narrative strategy.</p>
+    <div class="diff-pills">
+      <span class="diff-pill">Global Brand Activations</span>
+      <span class="diff-pill">Trade Show Management</span>
+      <span class="diff-pill">CMP Certified</span>
+      <span class="diff-pill">Corporate Event Strategy</span>
+      <span class="diff-pill">Vendor Portfolio Management</span>
+      <span class="diff-pill">Budget Ownership</span>
+      <span class="diff-pill">B2C &amp; DTC Experience</span>
+    </div>
+  </div>
+
+  <div class="disc-box">
+    <strong>DISC Profile: IS Type — Influence + Steadiness</strong>
+    The IS combination is one of the most natural fits in the event marketing profession. High Influence (I) drives the relationship-building with vendors, venues, and internal stakeholders that makes complex activations work. High Steadiness (S) provides the follow-through, consistency, and calm-under-pressure temperament that event execution demands. Together, these traits mean Jordan naturally builds trust across teams and keeps complex programs on track — but may underplay individual contributions in competitive interviews or salary negotiations. IS types often undersell themselves in writing and overdeliver in person. The 60-day roadmap accounts for this: several actions are designed to create documented, concrete evidence of outcomes that Jordan may naturally resist quantifying in self-promotion.
+  </div>
+
+  <div class="location-note">
+    <strong>Atlanta Market Context:</strong> Atlanta is a mid-tier event market that punches above its weight due to the presence of several Fortune 500 headquarters (Coca-Cola, Delta, Home Depot, UPS, Cox Enterprises), a robust convention infrastructure (Georgia World Congress Center), and a growing DTC and CPG brand scene. Event Director roles in Atlanta average $124,985/year — 15% above the national average for the role — reflecting the corporate density. Jordan's local network within this ecosystem is a genuine asset that remote competitors cannot replicate.
+  </div>
+</section>
+
+<!-- S2: MARKET DEMAND -->
+<section id="demand" class="section fade-up">
+  <div class="section-label">Section 02</div>
+  <h2 class="section-title">Market Demand — Roles Where Jordan Is a Top Candidate</h2>
+  <div class="role-grid">
+    <div class="role-card">
+      <div class="demand-badge badge-very-high">▲ Very High</div>
+      <div class="role-title">Senior Manager / Director, Experiential Marketing</div>
+      <div class="role-salary">$105K–$145K base · Atlanta</div>
+      <p class="role-rationale">Brands are significantly increasing experiential budgets in 2026, with the global event marketing industry projected at $36.31B. Jordan's B2C and DTC background maps directly onto the consumer-facing activation work that CPG, retail, and lifestyle brands need. The strongest proof point here is the global brand activation experience — not just domestic trade shows — which signals the ability to manage production across markets.</p>
+    </div>
+    <div class="role-card">
+      <div class="demand-badge badge-very-high">▲ Very High</div>
+      <div class="role-title">Director of Events — Fortune 500 Corporate</div>
+      <div class="role-salary">$115K–$160K base · Atlanta</div>
+      <p class="role-rationale">Atlanta's Fortune 500 cluster (Coca-Cola, Delta, Cox, Home Depot, NCR) regularly recruits experienced event directors who understand large-scale brand consistency across regions. Jordan's track record at publicly-traded companies signals familiarity with the governance, approval chains, and compliance requirements that characterize this environment. This is Jordan's most natural and competitive target market.</p>
+    </div>
+    <div class="role-card">
+      <div class="demand-badge badge-high">● High</div>
+      <div class="role-title">Global Events Manager — Technology / SaaS</div>
+      <div class="role-salary">$100K–$135K base · Hybrid</div>
+      <p class="role-rationale">78% of B2B marketers now allocate budget to experiential efforts, and in-person events ranked as the second-highest investment priority for 2026. SaaS companies with Atlanta offices or remote-friendly hiring (Salesforce, NCR Voyix, Global Payments) need experienced event managers for user conferences, field events, and trade show presence. Jordan's field event and booth management experience is directly applicable, and the B2C-to-B2B transition is increasingly common at this level.</p>
+    </div>
+    <div class="role-card">
+      <div class="demand-badge badge-high">● High</div>
+      <div class="role-title">Event Marketing Lead — CPG / Retail Brand</div>
+      <div class="role-salary">$95K–$130K base · Atlanta area</div>
+      <p class="role-rationale">With Coca-Cola, Chick-fil-A, and several DTC-native brands headquartered in Atlanta, there is consistent demand for event marketing leaders with B2C activation experience. Jordan's prior DTC background and brand activation expertise maps precisely to what CPG companies need when they bring events in-house rather than outsourcing entirely to agencies. The content development and social media support experience also adds cross-functional value in leaner team environments.</p>
+    </div>
+  </div>
+  <div class="trends-box">
+    <h3>Key Market Forces Shaping Demand in 2026</h3>
+    <ul>
+      <li>The event marketing industry is projected to reach <strong>$36.31B in 2026</strong>, with 67% of event professionals expecting increased spend this year.</li>
+      <li><strong>78% of B2B marketers</strong> now allocate budget to experiential marketing, extending demand well beyond traditional B2C clients into enterprise tech and finance.</li>
+      <li>The shift from "impressions" to <strong>dwell time, lead quality, and post-event behavior</strong> as ROI metrics creates demand for strategists who can design measurement-first programs — a differentiator Jordan can develop.</li>
+      <li>Brands are building <strong>long-term experiential ecosystems</strong> rather than one-off campaigns, increasing the value of full-time program leaders over agency relationships.</li>
+      <li><strong>Gen Z purchasing power</strong> is driving demand for activations that align with sustainability, community, and purpose — reshaping what "brand activation" means at the execution level.</li>
+      <li>64% of consumers retain positive brand impressions for a month or more after a live activation — making event ROI increasingly defensible at the board level and driving headcount investment.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S3: COMPENSATION -->
+<section id="compensation" class="section fade-up">
+  <div class="section-label">Section 03</div>
+  <h2 class="section-title">Compensation Benchmarks</h2>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Base Salary (Atlanta)</th>
+          <th>Bonus %</th>
+          <th>Total Cash</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Event Director — Fortune 500 Corporate</td>
+          <td class="salary-val">$115K–$160K</td>
+          <td>8–15%</td>
+          <td class="salary-val">$124K–$184K</td>
+          <td>Glassdoor Atlanta median: $124,985; top 10%: $221K</td>
+        </tr>
+        <tr>
+          <td>Director, Global Events (national scope)</td>
+          <td class="salary-val">$125K–$170K</td>
+          <td>10–20%</td>
+          <td class="salary-val">$138K–$204K</td>
+          <td>Glassdoor national range: $124K–$209K</td>
+        </tr>
+        <tr>
+          <td>Senior Manager, Experiential Marketing</td>
+          <td class="salary-val">$95K–$130K</td>
+          <td>8–12%</td>
+          <td class="salary-val">$103K–$146K</td>
+          <td>Salary.com Atlanta Event Manager avg: $103,527</td>
+        </tr>
+        <tr>
+          <td>Global Events Manager — SaaS / Tech</td>
+          <td class="salary-val">$100K–$135K</td>
+          <td>10–15%</td>
+          <td class="salary-val">$110K–$155K</td>
+          <td>Glassdoor Global Event Manager avg: $116,902</td>
+        </tr>
+        <tr>
+          <td>Event Marketing Manager — CPG / Retail</td>
+          <td class="salary-val">$85K–$115K</td>
+          <td>8–12%</td>
+          <td class="salary-val">$92K–$129K</td>
+          <td>ZipRecruiter Atlanta Event Marketing Mgr avg: $98,913</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="comp-source">Sources: Glassdoor (Feb–Apr 2026) · Salary.com (Mar 2026) · ZipRecruiter (Apr 2026) · PCMA Salary Survey · Robert Half 2026 Salary Guide</p>
+
+  <div class="ceiling-box">
+    <h3>⚠ Compensation Ceiling Risk to Be Aware Of</h3>
+    <p>Jordan's current Director title at a large public company creates a ceiling dynamic: the next logical step is VP of Events or Head of Global Events, which typically requires demonstrated management of larger teams (5–10+ direct reports) and full P&amp;L-level budget ownership. Without that scope expansion, Jordan risks being "promoted in title" rather than in total compensation over the next 2–3 years. Lateral moves into B2B tech or agency-side roles can reset this ceiling by providing broader team scope, but they require intentional positioning now — not after hitting the wall. The 60-day roadmap addresses this specifically.</p>
+  </div>
+</section>
+
+<!-- S4: CERTIFICATIONS -->
+<section id="certs" class="section fade-up">
+  <div class="section-label">Section 04</div>
+  <h2 class="section-title">Certifications &amp; Skills That Move the Needle</h2>
+  <p style="font-size:15px; color:var(--muted); margin-bottom:28px; line-height:1.7;">Jordan already holds the CMP — the most widely recognized credential in the industry, associated with average salaries ~$6,000–$11,000 higher than uncertified peers (PCMA Convene data). The CMP exam was updated in August 2025 to include new domains in sustainability, tech integration, and AI — making it more market-relevant than ever. The credentials below are ordered by the specific delta they add to Jordan's existing profile, not event certification value in general.</p>
+  <div class="cert-list">
+
+    <div class="cert-card">
+      <div class="cert-num">01</div>
+      <div class="cert-body">
+        <div class="cert-name">Digital Event Strategist (DES)</div>
+        <div class="cert-org">PCMA</div>
+        <p class="cert-desc">PCMA data shows professionals holding both CMP and DES earn an average of $18,000 more than CMP-only peers. Jordan's profile is entirely in-person and field-event focused; DES adds formal validation of hybrid and virtual event strategy, which is now expected at the Director level. The 2026 event landscape demands hybrid literacy — 53% of attendees plan to attend more webinars in 2026, and hybrid remains a live budget line at major brands. This credential closes the single most visible gap in Jordan's current certification profile.</p>
+      </div>
+      <div class="cert-meta">
+        <span class="cert-impact impact-highest">Highest Impact</span>
+        <span class="cert-cost cost-paid">~$595</span>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-num">02</div>
+      <div class="cert-body">
+        <div class="cert-name">Certified in Exhibition Management (CEM)</div>
+        <div class="cert-org">IAEE (International Association of Exhibitions and Events)</div>
+        <p class="cert-desc">Jordan's trade show and exhibition experience is extensive but uncredentialed beyond the CMP. The CEM is the specific designation that trade show and expo hiring managers look for — particularly at companies with major annual conventions or Tier 1 trade show presences. For Director-level roles at companies like Delta, Cvent, or large consumer brands with Las Vegas or Orlando trade show footprints, CEM signals a depth that the CMP alone doesn't convey. It also differentiates Jordan in any lateral move toward a conference and trade show management role.</p>
+      </div>
+      <div class="cert-meta">
+        <span class="cert-impact impact-high">High Impact</span>
+        <span class="cert-cost cost-paid">~$1,200</span>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-num">03</div>
+      <div class="cert-body">
+        <div class="cert-name">Google Analytics 4 (GA4) Certification</div>
+        <div class="cert-org">Google / Skillshop</div>
+        <p class="cert-desc">The 2026 event marketing market is shifting hard toward ROI measurement — dwell time, lead quality, post-event behavior, and attribution. Hiring managers at Director level increasingly expect fluency with data. GA4 certification is free, takes approximately 8–10 hours, and signals that Jordan can connect event activations to digital measurement — a specific gap at the intersection of Jordan's in-person expertise and the analytics-first direction of the field. This directly supports the "ROI storytelling" that boards and CMOs want from their event leaders in 2026.</p>
+      </div>
+      <div class="cert-meta">
+        <span class="cert-impact impact-high">High Impact</span>
+        <span class="cert-cost cost-free">Free</span>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-num">04</div>
+      <div class="cert-body">
+        <div class="cert-name">Cvent Event Management Platform Certification</div>
+        <div class="cert-org">Cvent</div>
+        <p class="cert-desc">Cvent is the dominant enterprise event technology platform and appears as a required or preferred skill in the majority of senior event management job postings. Having formal Cvent certification removes a filter that knocks otherwise qualified candidates out of screening — particularly at Fortune 500 companies and large agencies that standardize on the platform. If Jordan already uses Cvent, this is a 3–4 hour free online process. If not, learning it is a 60-day achievable skill that immediately broadens the applicable job pool.</p>
+      </div>
+      <div class="cert-meta">
+        <span class="cert-impact impact-high">High Impact</span>
+        <span class="cert-cost cost-free">Free</span>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-num">05</div>
+      <div class="cert-body">
+        <div class="cert-name">Certified Special Events Professional (CSEP)</div>
+        <div class="cert-org">ILEA (International Live Events Association)</div>
+        <p class="cert-desc">CSEP is most valuable for professionals in consumer-facing, live-event-heavy roles — which matches Jordan's B2C and DTC background. It's recognized among brand and activation agencies, entertainment-adjacent clients, and luxury brand event teams. If Jordan's goal includes agency-side or entertainment/sports/lifestyle brand paths, CSEP carries more weight than additional corporate credentials. Consider this only after DES and CEM are in hand; it is additive rather than foundational at this stage.</p>
+      </div>
+      <div class="cert-meta">
+        <span class="cert-impact impact-situational">Situational</span>
+        <span class="cert-cost cost-paid">~$750</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family:var(--serif); font-size:20px; margin-bottom:16px;">Non-Certification Skills That Expand Earning Range</h3>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <h4>Event ROI Measurement &amp; Attribution</h4>
+      <p>The 2026 market is demanding that event leaders prove business impact in financial terms — not attendance counts. Developing a repeatable ROI framework and using it to quantify past programs converts Jordan's depth into a language that CFOs and CMOs respond to in both interviews and salary negotiations.</p>
+    </div>
+    <div class="skill-item">
+      <h4>Sustainability Event Planning</h4>
+      <p>The 2025 CMP exam update added a full sustainability domain. Gen Z consumer pressure and corporate ESG commitments are turning sustainable event practices into a job requirement at consumer-facing brands. Jordan can leverage existing event execution expertise to develop and market this as a specialization.</p>
+    </div>
+    <div class="skill-item">
+      <h4>AI Tools for Event Operations</h4>
+      <p>AI is reshaping event registration, personalization, and logistics management. Demonstrable fluency with AI-powered event platforms (Bizzabo AI, Cvent AI features, ChatGPT for content scaffolding) is increasingly a differentiator at Director level and signals future-readiness to hiring teams.</p>
+    </div>
+    <div class="skill-item">
+      <h4>Scaled Budget Management Narrative</h4>
+      <p>Jordan likely manages significant budgets but may not be quantifying and leading with them. "Oversaw a $2.4M annual global events budget across 14 activations" is a Director-level statement that compresses years of complexity into one sentence. Documenting and consistently citing this number is a free career-advancement action.</p>
+    </div>
+  </div>
+</section>
+
+<!-- S5: ROADMAP -->
+<section id="roadmap" class="section fade-up">
+  <div class="section-label">Section 05</div>
+  <h2 class="section-title">60-Day Action Roadmap</h2>
+  <p style="font-size:14px; color:var(--muted); margin-bottom:28px;"><em>Assumptions: $1,000 budget. Estimated 45–60 minutes/day on career development. Goal: close the most impactful credential gap, sharpen market positioning, and generate 3–5 qualified conversations with target employers or event industry contacts.</em></p>
+
+  <div class="budget-box">
+    <h3>Budget Allocation — $1,000</h3>
+    <table class="budget-table">
+      <thead><tr><th>Item</th><th>Cost</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>PCMA Digital Event Strategist (DES) — Course + Exam</td><td class="budget-val">$595</td><td>Highest compensation delta per PCMA data; closes most visible credential gap</td></tr>
+        <tr><td>Google Analytics 4 Certification (GA4) — Skillshop</td><td class="budget-val">Free</td><td>Free; directly addresses ROI measurement gap; 8–10 hours to complete</td></tr>
+        <tr><td>Cvent Certification — Cvent Academy</td><td class="budget-val">Free</td><td>Free; removes a frequent ATS filter in Fortune 500 and enterprise job apps</td></tr>
+        <tr><td>LinkedIn Premium (2 months)</td><td class="budget-val">$80</td><td>InMail for direct outreach to hiring managers and event industry peers</td></tr>
+        <tr><td>MPI or PCMA Atlanta Chapter — Annual Membership</td><td class="budget-val">$325</td><td>Primary in-person networking channel for Atlanta event market; peer referrals are the #1 source of senior event hires</td></tr>
+        <tr><td><strong>Total</strong></td><td class="budget-val"><strong>$1,000</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="timeline">
+    <div class="phase">
+      <div class="phase-meta">Days 1–10 · Phase 1</div>
+      <h3 class="phase-title">Positioning Fixes &amp; Free Credentials</h3>
+      <p class="phase-desc">Fast, zero-cost actions that improve how Jordan shows up in searches and screenings. The IS personality type often deprioritizes self-promotion; these actions create a documented record that does the advocating without requiring Jordan to feel like they're "bragging."</p>
+      <ul class="phase-tasks">
+        <li>Update LinkedIn headline: "Director of Global Events | CMP | Brand Activation · Trade Shows · Corporate Events | Atlanta" — specificity beats generic titles in recruiter searches</li>
+        <li>Add quantified budget figure to every relevant role description: "Managed $Xm annual events budget across X activations in X markets" — if the exact number isn't remembered, reconstruct it from past vendor invoices or performance reviews</li>
+        <li>Enroll in Cvent Academy and begin certification (free; target completion by Day 14)</li>
+        <li>Enroll in Google Skillshop GA4 certification (free; target completion by Day 18)</li>
+        <li>Register for MPI or PCMA Atlanta chapter membership; check calendar for next local event</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-meta">Days 11–30 · Phase 2</div>
+      <h3 class="phase-title">DES Credential Sprint + Network Re-Engagement</h3>
+      <p class="phase-desc">Complete the two free certifications and begin the DES course. Simultaneously re-engage the existing Atlanta event industry network — for IS types, this is energizing work that produces results faster than cold outreach.</p>
+      <ul class="phase-tasks">
+        <li>Complete Cvent certification (add to LinkedIn and resume immediately upon completion)</li>
+        <li>Complete GA4 certification (add to LinkedIn and resume; note it in the Skills section as "Event ROI Measurement · Google Analytics 4")</li>
+        <li>Begin PCMA DES course — set a target of completing 2 of the 5 course modules by Day 30</li>
+        <li>Attend one MPI or PCMA Atlanta chapter event; goal is 3 substantive conversations with peers or hiring-adjacent contacts (agency leads, brand managers, HR contacts at target companies)</li>
+        <li>Pull a list of 10 Atlanta-area target companies where Jordan would thrive — Fortune 500 HQs, consumer brands, and major event agencies; research who heads the events or marketing team at each</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-meta">Days 31–48 · Phase 3</div>
+      <h3 class="phase-title">DES Completion + Content &amp; Visibility</h3>
+      <p class="phase-desc">Complete the DES and begin a lightweight content presence. For an IS type, LinkedIn posts that share practitioner observations — not self-promotion — are the most natural format and tend to perform well because they're genuinely useful rather than promotional.</p>
+      <ul class="phase-tasks">
+        <li>Complete remaining DES modules and take exam (target: Day 44)</li>
+        <li>Write and publish one LinkedIn post: "What I've learned managing global brand activations across X markets" — practitioner POV, specific observations, no fluff; tag relevant Atlanta brands and industry contacts</li>
+        <li>Use LinkedIn Premium to send 5 direct messages to event directors and marketing leaders at target companies — not asking for a job, asking for a 20-minute "how do you structure your events team" conversation</li>
+        <li>Update resume to reflect all three new credentials (DES, GA4, Cvent) and the quantified budget figure</li>
+        <li>Identify one speaking or panelist opportunity at an Atlanta event industry gathering — this is the highest-leverage visibility action available in the local market</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-meta">Days 49–60 · Phase 4</div>
+      <h3 class="phase-title">Market Activation</h3>
+      <p class="phase-desc">Turn groundwork into conversations. At this point Jordan has three new credentials, a refreshed positioning, a quantified track record, and 30+ days of network re-engagement. The goal is converting that preparation into a pipeline of live opportunities.</p>
+      <ul class="phase-tasks">
+        <li>Apply to 5–8 Director/Senior Manager roles that are active at target companies; use the updated resume and quantified budget narrative in every application</li>
+        <li>Follow up on all LinkedIn outreach messages from Phase 3; schedule any conversations that came from them</li>
+        <li>Publish a second LinkedIn post: "How I think about measuring event ROI beyond attendance" — positions Jordan as forward-thinking on the exact metric shift that 2026 event budgets are being measured by</li>
+        <li>Begin researching CEM certification for the 90-day horizon — budget is spent, but knowing the next credential in the pipeline keeps momentum alive</li>
+        <li>Have a self-advocacy plan ready for any current-employer performance review or salary conversation that may occur in this window</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="deliverables-box">
+    <h3>What You Have at Day 60</h3>
+    <div class="deliverables-grid">
+      <div class="deliverable-item">DES certification (PCMA) completed and live on LinkedIn</div>
+      <div class="deliverable-item">GA4 certification completed; ROI measurement narrative active</div>
+      <div class="deliverable-item">Cvent certification completed; ATS filter removed</div>
+      <div class="deliverable-item">LinkedIn headline and all role descriptions quantified</div>
+      <div class="deliverable-item">MPI/PCMA Atlanta membership active; chapter connections made</div>
+      <div class="deliverable-item">Budget figure documented and consistently cited in writing</div>
+      <div class="deliverable-item">2 LinkedIn posts published with practitioner POV</div>
+      <div class="deliverable-item">10 target companies researched; key contacts identified</div>
+      <div class="deliverable-item">5 direct conversations initiated with hiring-adjacent contacts</div>
+      <div class="deliverable-item">5–8 active applications in progress at target employers</div>
+    </div>
+  </div>
+</section>
+
+<!-- S6: GAPS & OPPS -->
+<section id="gaps" class="section fade-up">
+  <div class="section-label">Section 06</div>
+  <h2 class="section-title">Gaps &amp; Opportunities</h2>
+
+  <h3 style="font-family:var(--serif); font-size:20px; margin-bottom:16px; color:var(--red-border);">Gaps — Things Costing Jordan Right Now</h3>
+  <div class="go-grid" style="margin-bottom:40px;">
+    <div class="go-card gap-card">
+      <div class="go-type">Credential Gap</div>
+      <div class="go-title">No Digital or Hybrid Event Credential</div>
+      <p class="go-body">Jordan's CMP is strong, but the absence of any hybrid/virtual event certification reads as a gap to hiring managers in 2026. The field moved permanently toward hybrid after 2020, and Director-level candidates are now expected to demonstrate formal literacy in digital event strategy — not just in-person execution. DES closes this gap directly and carries a documented salary premium on top of CMP.</p>
+    </div>
+    <div class="go-card gap-card">
+      <div class="go-type">Positioning Gap</div>
+      <div class="go-title">Team Size May Stall VP-Level Progression</div>
+      <p class="go-body">Managing three direct reports, none with their own reports, is below the threshold many VP-level job descriptions specify. This isn't a reflection of Jordan's competence — it reflects the organizational structure of previous employers. The fix is intentional: either seek roles that offer team growth, or frame scope in terms of vendor relationships managed, budget owned, and cross-functional stakeholders influenced rather than headcount supervised.</p>
+    </div>
+    <div class="go-card gap-card">
+      <div class="go-type">Measurement Gap</div>
+      <div class="go-title">No Documented ROI Narrative</div>
+      <p class="go-body">The event marketing market is moving sharply toward outcome measurement — dwell time, lead conversion, post-event sales lift, brand sentiment change. If Jordan cannot speak fluently to how past activations moved business metrics, it creates a competency gap with hiring managers who have been burned by event teams that operated as cost centers rather than growth drivers. GA4 certification and one documented case study solve this immediately.</p>
+    </div>
+    <div class="go-card gap-card">
+      <div class="go-type">Visibility Gap</div>
+      <div class="go-title">Low Professional Visibility Outside Current Employer</div>
+      <p class="go-body">Ten years of strong execution at large companies may have been done primarily in the background. IS types often prefer to let the work speak for itself, but at Director level, external visibility — through LinkedIn posts, industry panels, or MPI/PCMA chapter participation — is how peers and recruiters know Jordan exists. The event industry is relationship-dense; the fastest path to new opportunities is being known before a role opens up, not after.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--serif); font-size:20px; margin-bottom:16px; color:var(--teal);">Opportunities — Untapped Potential</h3>
+  <div class="go-grid">
+    <div class="go-card opp-card">
+      <div class="go-type">Market Timing</div>
+      <div class="go-title">Event Budgets Are Expanding Right Now</div>
+      <p class="go-body">67% of event professionals expect increased meeting spend in 2026. This is the right moment to move — companies expanding event programs are creating new headcount rather than backfilling exits, which typically comes with more scope and more negotiating leverage. Waiting 12 months could mean entering a market that has already filled its Director-level roles for this cycle.</p>
+    </div>
+    <div class="go-card opp-card">
+      <div class="go-type">B2C-to-B2B Pivot</div>
+      <div class="go-title">B2C Experience Is Valued in B2B Tech Right Now</div>
+      <p class="go-body">B2B buyers increasingly expect B2C-style event experiences — high production values, brand storytelling, emotional resonance. SaaS and technology companies with Atlanta presences (Salesforce, NCR Voyix, Global Payments) are specifically recruiting event leaders who can bring consumer-brand sensibility to corporate programs. Jordan's B2C background is a genuine differentiator in this context, not a liability.</p>
+    </div>
+    <div class="go-card opp-card">
+      <div class="go-type">Atlanta Fortune 500 Network</div>
+      <div class="go-title">Local Corporate HQ Density Is a Structural Advantage</div>
+      <p class="go-body">Atlanta is home to more Fortune 500 headquarters per capita than most U.S. cities outside New York and Chicago. Companies like Coca-Cola, Delta, The Home Depot, UPS, and Cox Enterprises all maintain in-house event and experiential marketing teams. After 10 years in the Atlanta market, Jordan likely has first- and second-degree connections inside many of these organizations — a pipeline that most candidates lack entirely.</p>
+    </div>
+    <div class="go-card opp-card">
+      <div class="go-type">Content Development Background</div>
+      <div class="go-title">Content + Events Cross-Functional Experience Is Rare</div>
+      <p class="go-body">Most event directors have pure logistics backgrounds. Jordan's prior support of content development and social media creates a cross-functional profile that is increasingly valuable as brands build integrated experiential content engines — where the activation generates assets, the assets fuel social, and social amplifies the activation. This three-part loop is a priority for DTC brands in 2026, and Jordan is one of few event directors who can credibly claim to have operated inside it.</p>
+    </div>
+    <div class="go-card opp-card">
+      <div class="go-type">Global Activation Experience</div>
+      <div class="go-title">International Scope Is a Rare Differentiator at Mid-Career</div>
+      <p class="go-body">Most Regional Events Managers never build global activation experience before Director level. Jordan has it. This should be the lead differentiator in every application and conversation — not buried in a job description. The ability to manage production across international markets signals cross-cultural competence, vendor negotiation depth, and logistical complexity that regional-only candidates simply cannot match.</p>
+    </div>
+    <div class="go-card opp-card">
+      <div class="go-type">IS Personality Asset</div>
+      <div class="go-title">Relationship Capital Compounds Over Time</div>
+      <p class="go-body">The IS DISC type builds deep, trusted relationships — with vendors, venues, internal stakeholders, and clients. After 10 years in the Atlanta market, Jordan has a network of people who will actively advocate, refer, and recommend in ways that even the strongest resume cannot replicate. This capital is only fully realized if Jordan is deliberately and consistently re-engaging it — which the roadmap above is designed to activate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-disclaimer">
+      ★ This is a sample Career Intelligence Report created to demonstrate the format and depth of analysis available. The subject, "Jordan M. Ellis," is a fictional composite professional. All market data, salary benchmarks, and certification information is real and sourced from current research (April 2026).
+    </div>
+    <div class="footer-top">
+      <div>
+        <span class="footer-name">Jordan M. Ellis — Sample Profile</span>
+        Career Intelligence Report · April 17, 2026 · Atlanta, GA
+      </div>
+      <div>
+        <span class="footer-name" style="font-size:13px;">Event Marketing · B2C / DTC</span>
+        10 Years Experience · CMP Certified
+      </div>
+    </div>
+    <p class="sources-title">Data Sources</p>
+    <ul class="sources-list">
+      <li>Glassdoor Salary Data — Event Director, Atlanta GA (Feb–Apr 2026)</li>
+      <li>Salary.com — Meeting/Event Manager, Atlanta GA (Mar 2026)</li>
+      <li>ZipRecruiter — Event Marketing Manager, Atlanta GA (Apr 2026)</li>
+      <li>PCMA Convene Salary Survey — CMP &amp; DES Compensation Premium Data</li>
+      <li>Bizzabo 2026 State of Events Benchmarks Report (Mar 2026)</li>
+      <li>ATN Event Staffing — 8 Experiential Marketing Trends 2026 (Jan 2026)</li>
+      <li>Daedal Research — Event Marketing Industry Projections to $36.31B (2026)</li>
+      <li>EMARKETER — B2B Experiential Marketing Investment Report (Feb 2026)</li>
+      <li>Events Industry Council — CMP Certification &amp; Exam Update (Aug 2025)</li>
+      <li>Robert Half 2026 Technology &amp; Marketing Salary Guide</li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
